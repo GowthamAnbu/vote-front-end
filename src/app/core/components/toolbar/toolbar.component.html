@@ -1,0 +1,12 @@
+<mat-toolbar color="primary" toolbar>
+  <button
+    type="button"
+    aria-label="Toggle sidenav"
+    mat-icon-button
+    (click)="drawer.toggle()"
+    *ngIf="utilsService.isHandset$ | async">
+    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+  </button>
+  <button mat-raised-button *ngIf="!authService.user" routerLink="/login">Login</button>
+  <span>Voting Application</span>
+</mat-toolbar>

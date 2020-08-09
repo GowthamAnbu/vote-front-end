@@ -1,0 +1,46 @@
+<!-- <pre>{{candidate$ | async | json}}</pre> -->
+<!-- <pre>{{formEditable | json}}</pre> -->
+
+<mat-card *ngIf="candidate$ | async as candidate">
+  <mat-card-header>
+    <mat-card-title>{{candidate.name}} - Total Votes {{candidate.totalVotes}}</mat-card-title>
+    <mat-card-subtitle>Expert Level {{candidate.expertiseLevel}} | Number of Challenges Completed {{candidate.noOfChallengesSolved}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div *ngFor="let expertIn of candidate.expertIn | keyvalue">
+      {{expertIn.key}} - {{expertIn.value}}
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button (click)="vote(candidate.id)" [color]="'primary'" [disabled]="!!autheService.user?.voted">Vote</button>
+  </mat-card-actions>
+</mat-card>
+
+
+<mat-card *ngIf="formEditable && candidate$ | async as candidate">
+  <form (ngSubmit)="onSubmit(candidateForm.value, candidateForm.valid)" [formGroup]="candidateForm">
+  <mat-card-header>
+    <mat-card-title>
+      <input type="text" name="name" formControlName="name">
+    </mat-card-title>
+  </mat-card-header>
+  <mat-form-field>
+    <input matInput placeholder="Name" formControlName="name" type="text">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Expert Level" formControlName="experLevel" type="number">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Number of Challenges Completed" formControlName="noOfChallegesCompleted" type="number">
+  </mat-form-field>
+  <mat-card-content>
+    <div *ngFor="let expertIn of candidate.expertIn | keyvalue">
+      {{expertIn.key}} - {{expertIn.value}}
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button type="submit" [color]="'primary'">Update</button>
+    <button mat-button type="button" [color]="'warning'" (click)="delete(candidate)" *ngIf="autheService.user && autheService.user.roles.admin">Delete</button>
+  </mat-card-actions>
+  </form>
+</mat-card>

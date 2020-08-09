@@ -1,0 +1,6 @@
+<button mat-raised-button *ngIf="authService.user && authService.user.roles.admin" routerLink="/candidates/newcandidate">Add New Candidate</button>
+<mat-card *ngFor="let candidate of candidate$ | async" (click)="goto(candidate.id)">
+  <mat-card-header>
+    <mat-card-title>{{candidate.name}}</mat-card-title>
+  </mat-card-header>
+</mat-card>

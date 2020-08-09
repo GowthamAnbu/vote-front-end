@@ -1,0 +1,19 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(utilsService.isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(utilsService.isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(utilsService.isHandset$ | async) === false"
+  >
+    <mat-toolbar>
+      {{ authService.user ? authService.user.userName : 'Menu'}}
+    </mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item [routerLink]="['./candidates']" routerLinkActive="active" (click)="drawer.mode === 'over' && drawer.close()">Home</a>
+      <button mat-button (click)="logout()" *ngIf="authService.user">Logout</button>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-toolbar [drawer]="drawer"></app-toolbar>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

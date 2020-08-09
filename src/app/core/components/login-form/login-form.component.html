@@ -1,0 +1,32 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Login</mat-card-title>
+  </mat-card-header>
+  <form class="login-form" (ngSubmit)="login(loginForm.value, loginForm.valid)" [formGroup]="loginForm">
+  <mat-card-content>
+      <mat-form-field class="login-full-width">
+        <mat-label>Username</mat-label>
+        <input type="text" matInput formControlName="userName" placeholder="Ex. username_874">
+        <mat-error *ngIf="loginForm.get('userName').hasError('required') && loginForm.get('userName').dirty">
+          user name is required
+        </mat-error>
+        <!-- <mat-error *ngIf="loginForm.get('userName').hasError('email') && loginForm.get('userName').dirty">
+          Username is <strong>required</strong>
+        </mat-error> -->
+      </mat-form-field>
+      <mat-form-field class="login-full-width">
+        <mat-label>Password</mat-label>
+        <input type="password" matInput formControlName="password" >
+        <mat-error *ngIf="loginForm.get('password').hasError('required') && loginForm.get('password').dirty">
+          Password is required
+        </mat-error>
+        <!-- <mat-error *ngIf="loginForm.get('password').hasError('cutomerror') && loginForm.get('password').dirty">
+          password is <strong>required</strong>
+        </mat-error> -->
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions>
+      <button type="submit" mat-button color="primary">Login</button>
+    </mat-card-actions>
+  </form>
+</mat-card>
